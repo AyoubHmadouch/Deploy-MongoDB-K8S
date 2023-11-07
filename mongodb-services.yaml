@@ -1,0 +1,32 @@
+--- 
+# internal service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-internal-service
+spec:
+  selector:
+    app: mongodb
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      targetPort: 27017
+      port: 27017
+
+--- 
+# external service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-external-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30001
+
+ 
